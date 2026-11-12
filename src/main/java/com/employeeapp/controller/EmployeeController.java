@@ -2,7 +2,6 @@ package com.employeeapp.controller;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,11 +10,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.employeeapp.dto.request.EmployeeRequestDTO;
 import com.employeeapp.dto.response.EmployeeResponseDTO;
-import com.employeeapp.entity.Employee;
+import com.employeeapp.enums.Department;
 import com.employeeapp.service.EmployeeService;
 
 import jakarta.validation.Valid;
@@ -54,7 +54,7 @@ public class EmployeeController {
 	@DeleteMapping("/{id}")
 	public ResponseEntity<String> deleteEmployeeById(@PathVariable Integer id) {
 		service.deleteEmployeeById(id);
-		return ResponseEntity.noContent().build();
+		return ResponseEntity.ok("Employee deleted");
 	}
 	
 	@PutMapping("/{id}")
@@ -64,7 +64,12 @@ public class EmployeeController {
 	}
 	
 	@GetMapping("/dept/{dept}")
-	public ResponseEntity<List<EmployeeResponseDTO>> getByDepartment(@PathVariable String dept){
+	public ResponseEntity<List<EmployeeResponseDTO>> getByDepartment(@PathVariable Department dept){
 		return ResponseEntity.ok(service.getByDepartment(dept));
+	}
+	
+	@GetMapping("/search")
+	public ResponseEntity<List<EmployeeResponseDTO>> searchByName(@RequestParam String name){
+		return ResponseEntity.ok(service.searchByName(name));
 	}
 }

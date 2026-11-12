@@ -1,6 +1,5 @@
 package com.employeeapp.service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -9,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.employeeapp.dto.request.EmployeeRequestDTO;
 import com.employeeapp.dto.response.EmployeeResponseDTO;
 import com.employeeapp.entity.Employee;
+import com.employeeapp.enums.Department;
 import com.employeeapp.exceptions.EmployeeNotFoundException;
 import com.employeeapp.repository.EmployeeRepository;
 
@@ -37,6 +37,7 @@ public class EmployeeService {
 	
 	public EmployeeResponseDTO toResponseDto(Employee emp){
 		EmployeeResponseDTO dto=new EmployeeResponseDTO();
+		dto.setId(emp.getId());
 		dto.setName(emp.getName());
 		dto.setEmail(emp.getEmail());
 		dto.setSalary(emp.getSalary());
@@ -91,7 +92,11 @@ public class EmployeeService {
 		repo.save(exist);
 	}
 	
-	public List<EmployeeResponseDTO> getByDepartment(String dept){
+	public List<EmployeeResponseDTO> getByDepartment(Department dept){
 		return toListResponseDto(repo.findByDepartmentAndIsDeletedFalse(dept));
+	}
+	
+	public List<EmployeeResponseDTO> searchByName(String name){
+		return toListResponseDto(repo.findByNameContainingIgnoreCaseAndIsDeletedFalse(name));
 	}
 }

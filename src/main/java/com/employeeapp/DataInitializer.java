@@ -1,5 +1,6 @@
 package com.employeeapp;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
@@ -17,6 +18,9 @@ public class DataInitializer implements CommandLineRunner{
 		this.passwordEncoder = passwordEncoder;
 	}
 
+	
+	@Value("${admin.default.password}")
+	private String defaultAdminPassword;
 
 	@Override
 	public void run(String... args) throws Exception {
@@ -24,7 +28,7 @@ public class DataInitializer implements CommandLineRunner{
 		if(!repo.existsByUsername("admin")) {
 			User user=new User();
 			user.setUsername("admin");
-			user.setPassword(passwordEncoder.encode("admin123"));
+			user.setPassword(passwordEncoder.encode(defaultAdminPassword));
 			user.setRole(Role.ADMIN);
 			repo.save(user);
 		}

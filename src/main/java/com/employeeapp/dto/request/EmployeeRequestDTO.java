@@ -1,5 +1,7 @@
 package com.employeeapp.dto.request;
 
+import com.employeeapp.enums.Department;
+
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
@@ -19,8 +21,8 @@ public class EmployeeRequestDTO {
 	@NotBlank(message = "Email can't be empty")
 	@Email(message = "Invalid email")
 	private String email;
-	@NotBlank(message = "Department can't be empty")
-	private String department;
+	@NotNull(message = "Department can't be empty")
+	private Department department;
 	@NotNull(message = "Salary can't be empty")
 	@Min(value = 1,message = "Salary must be greater than 0!")
 	private Double salary;
