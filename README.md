@@ -257,4 +257,4 @@ On first startup, a default admin is automatically created using the `ADMIN_DEFA
 **Vijaykumar** — Java Full Stack Developer
 [GitHub](https://github.com/vijaykumar-dev28)
 
-[LinkedIn](www.linkedin.com/in/vijaykumar-dev28)
+[LinkedIn](https://www.linkedin.com/in/vijaykumar-dev28)
